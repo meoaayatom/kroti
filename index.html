@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		.prop {
+			position: absolute;
+			height: 400px;
+			width: 400px;
+			background-image: url(1.png);
+			background-size: 100% 100%;
+
+		}
+		.mole{
+			width: 200px;
+			height: 300px;
+			position: absolute;
+			background-size: 100% 100%;
+			margin-left: 100px;
+		}
+		.scr{
+			font-size: 30px;
+		}
+		body{
+			background-image: url(6.jpg);
+			background-size: 100% 3000%;
+		}
+	</style>
+</head>
+<body>
+
+<!-- дивы норы чтобы появится -->
+<div class="scr">счет:<span class="score"></span></div>
+<div class="prop first" style="top: 700px; left: 500px"></div>
+<div class="prop" style="top: 700px; left: 1000px"></div>
+<div class="prop" style="top: 700px; left: 1500px"></div>
+
+
+
+
+<script type="text/javascript">
+	let firstNore = document.querySelector(".first")
+	let lleft = [500,1000,1500]
+	let score = document.querySelector(".score")
+	let s = 0
+
+
+	let getRandom = function(num){
+		let rand = Math.random() * num
+        let round = Math.round(rand) 
+
+        return round
+	}
+
+	let name = ["good", "bad"]
+
+	let kroti = function(){
+		let krot = document.createElement('div')
+
+		document.body.appendChild(krot)
+
+		firstNore.before(krot)
+
+		krot.classList.add("mole")
+		krot.style.top = "700px"
+		krot.style.transition = "3s"
+		krot.style.left = lleft[getRandom(2)] + "px"
+		krot.name = name[getRandom(1)]
+
+		if(krot.name == "good"){
+			krot.style.backgroundImage = "url(4.jpg)"
+		} else if(krot.name == "bad"){
+			krot.style.backgroundImage = "url(5.jpg)"
+		}
+
+		let show = function(){
+			krot.style.top = "400px"
+		}
+		setTimeout(show, 1000)
+
+		let hide = function(){
+			krot.style.top = "700px"
+		}
+		setTimeout(hide, 2000)
+		
+		krot.onclick = function(){
+			if(krot.name == "bad"){
+				hide()
+				s = s - 1
+				score.innerHTML = s
+			} else if(krot.name == "good"){
+				hide()
+				s = s + 1
+				score.innerHTML = s
+			}
+
+		}
+		
+
+	}
+
+	setInterval(kroti, 1000)
+
+	let timer = function(){
+			if(s >= 10){
+				alert("you win")
+				clearTimeout(timer)
+			} else if (s < 10){
+				alert("you loose")
+				clearTimeout(timer)
+			}
+		}
+		setTimeout(timer, 10000)
+
+
+
+
+
+</script>
+</body>
+</html>
